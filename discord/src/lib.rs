@@ -22,7 +22,7 @@ async fn handler(msg: Message) {
     logger::init();
     let token = env::var("discord_token").unwrap();
     let placeholder_text = env::var("placeholder").unwrap_or("Typing ...".to_string());
-    let system_prompt = env::var("system_prompt").unwrap_or("You are a helpful chemistry teacher. Explain in simple English and adhere strictly to facts.".to_string());
+    let system_prompt = env::var("system_prompt").unwrap_or(".".to_string());
     let llm_endpoint = std::env::var("llm_endpoint").unwrap_or("".to_string());
 
     let bot = ProvidedBot::new(token);
@@ -90,7 +90,7 @@ async fn handler(msg: Message) {
             _ = discord.edit_message(
                 channel_id.into(), placeholder.id.into(),
                 &serde_json::json!({
-                    "content": "Sorry, an error has occured. Please try again later!"
+                    "content": "Sorry, an error has occurred. Please try again later!"
                 }),
             ).await;
             log::error!("OpenAI returns error: {}", e);
